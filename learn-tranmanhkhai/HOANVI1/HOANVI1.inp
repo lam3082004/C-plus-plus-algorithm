@@ -1,0 +1,44 @@
+using namespace std;
+#include<bits/stdc++.h>
+#define fo(i,a,b) for(int i=a;i<=b;i++)
+#define ll long long
+#define nmax 1000005
+#define mod 1000000007
+ll n,k;
+stack<char> a;
+stack <char> x;
+string s;
+int main()
+{
+    //freopen("l.inp","r",stdin);
+    //freopen("l.out","w",stdout);
+    ios::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    cin>>s>>k;
+    fo(i,0,s.size()-1)
+    if(a.empty())  a.push(s[i]);
+    else {
+         while(!a.empty() && s[i]>a.top() && k>0)
+         {
+             a.pop();
+             --k;
+         }
+         a.push(s[i]);
+           }
+           while(k>0&& !a.empty())
+           {
+               a.pop();
+               --k;
+           }
+           while(a.size())
+           {
+               x.push(a.top());
+               a.pop();
+           }
+           while(x.size())
+           {
+               cout<<x.top();
+               x.pop();
+           }
+}
+    
