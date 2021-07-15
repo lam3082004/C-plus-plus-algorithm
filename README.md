@@ -1,7 +1,3 @@
-Những năm tháng cấp 3 của tôi đây đấy =))
-
-
-Học những cái này có phần hơi nhàm chán đó :((
-
+Một chút thuật toán =)))
 
 VINH đọc đi nha ko ai cấm mô
