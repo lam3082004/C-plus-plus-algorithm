@@ -31,13 +31,13 @@ void update(ll id, ll l, ll r, ll u, ll v)
     ll mid = l + r >> 1;
     update(2 * id, l, mid, u, v);
     update(2 * id + 1, mid + 1, r, u, v);
-    st[id] = st[2 * id] + st[2 * id + 1];
+    st[id] = min(st[2 * id], st[2 * id + 1]);
 }
 ll get(ll id, ll l, ll r, ll u, ll v)
 {
     if (r < u || v < l)
     {
-        return 0;
+        return 1e18;
     }
     if (r <= v && u <= l)
     {
@@ -45,7 +45,7 @@ ll get(ll id, ll l, ll r, ll u, ll v)
     }
     ll mid = l + r >> 1;
 
-    return get(2 * id, l, mid, u, v) + get(2 * id + 1, mid + 1, r, u, v);
+    return min(get(2 * id, l, mid, u, v), get(2 * id + 1, mid + 1, r, u, v));
 }
 int main()
 {
@@ -53,31 +53,17 @@ int main()
     cin.tie(0);
     cout.tie(0);
 #ifndef ONLINE_JUDGE
-    freopen("segmenttree.inp", "r", stdin);
-    freopen("segmenttree.out", "w", stdout);
+    freopen("l.inp", "r", stdin);
+    freopen("l.out", "w", stdout);
 #endif // ONLINE_JUDGE
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-    cin >> n >> k;
+    cin >> n;
     fo(i, 1, n)
     {
         cin >> a[i];
+        update(1, 1, n, i, a[i]);
     }
-    build(1, 1, n);
-    while (k--)
-    {
-        cin >> t >> l >> r;
-        ll p = l;
-        if (t == 0)
-        {
-            cin >> z;
-            fo(i, l, r)
-            {
-                update(1, 1, n, i, a[i] + z);
-            }
-        }
-        else
-            cout << get(1, 1, n, l, r) << '\n';
-    }
+    cout << get(1, 1, n, 1, n) << '\n';
 }
