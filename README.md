@@ -1,3 +1,2 @@
-Một chút thuật toán =)))
-
-VINH đọc đi nha ko ai cấm mô
+Một chút thuật toán =))
+-----high shool-----
