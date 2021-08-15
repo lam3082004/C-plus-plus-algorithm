@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define fo(i, a, b) for (int i = a; i <= b; i++)
+#define nmax 1005
+using namespace std;
+int u,v,s,t,q,dir,n,m;
+ll f[1005][1005],w;
+void BFS()
+{
+    fo(k,1,n)
+        fo(i,1,n)
+            fo(j,1,n)
+                f[i][j]=min(f[i][j],f[i][k]+f[k][j]);
+}
+int main()
+{
+#ifndef ONLINE_JUDGE
+    freopen("l.inp","r", stdin);
+    freopen("l.out", "w", stdout);
+#endif // ONLINE_JUDGE
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    ll md=1e9+7;
+    cin>>n>>m;
+    fo(i,1,n)
+        fo(j,1,n)
+            f[i][j]=md;
+    fo(i,1,m)
+    {
+        cin>>u>>v>>w>>dir;
+        f[u][v]=w;
+        if(dir == 0) f[v][u]=w;
+    }
+    fo(i,1,n) f[i][i]=0;
+    BFS();
+    cin>>q;
+    while(q--)
+    {
+        cin>>s>>t;
+        if(f[s][t]!=md) cout<<f[s][t]<<'\n';
+        else cout<<"-1"<<'\n';
+    }
+}

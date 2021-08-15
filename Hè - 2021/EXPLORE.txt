@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+#define ll long long
+#define fo(i,a,b) for(int i=a;i<b;++i)
+#define ii pair<ll,ll>
+using namespace std;
+const int N=2e3+1;
+int dx[]={1,0,-1,0};
+int dy[]={0,1,0,-1};
+ll vis[N][N],r,c,trace[N][N],a[N][N];
+queue<ii> q;
+void bfs(int u,int p){
+    q.push({u,p});
+    vis[u][p]=1;
+    while(q.size()){
+        ii v=q.front();q.pop();
+        int x=v.first,y=v.second;
+        fo(i,0,4){
+            int xx=dx[i]+x;
+            int yy=dy[i]+y;
+            if(xx>=0&&xx<r&&yy>=0&&yy<c){
+                if(a[xx][yy]==0){
+                    if(vis[xx][yy]==0){
+                        trace[xx][yy]=trace[x][y]+1;
+                        q.push({xx,yy});
+                        vis[xx][yy]=1;
+                    }
+                }
+            }
+        }
+    }
+}
+int main()
+{
+     	#ifndef ONLINE_JUDGE
+    freopen("l.inp","r", stdin);
+    freopen("l.out", "w", stdout);
+	#endif // ONLINE_JUDGE
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+        cin>>r>>c;
+        fo(i,0,r){
+            fo(j,0,c){
+                cin>>a[i][j];
+                trace[i][j]=N;
+            }
+        }
+        trace[0][0]=0;
+        bfs(0,0);
+        if(trace[r-1][c-1]==N)cout<<-1;
+        else cout<<trace[r-1][c-1];
+}

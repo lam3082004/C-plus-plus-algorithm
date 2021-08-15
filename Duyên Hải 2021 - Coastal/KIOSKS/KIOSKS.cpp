@@ -3,7 +3,7 @@
 #define fo(i, a, b) for (int i = a; i <= b; i++)
 #define nmax 100005
 using namespace std;
-int n,k,a[nmax],x,y;
+int n,k,a[nmax],x,y,dem=0;
 int main()
 {
 //#ifndef ONLINE_JUDGE
@@ -23,7 +23,7 @@ int main()
     if(k!=1)
     {
         cout<<1;
-        break;
+        return 0;
     }
     cout<<dem;
 }
