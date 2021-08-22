@@ -1,0 +1,46 @@
+The Anh To
+#include <bits/stdc++.h>
+#define ll long long
+#define fo(i,a,b) for(int i=a;i<=b;++i)
+#define fod(i,a,b) for(int i=a;i>=b;--i)
+#define ii pair<int,int>
+#define fi first
+#define se second
+#define oo 1e18
+#define bit(x,i) (((x)>>(i))&1)
+using namespace std;
+const int MOD = 1e9 + 7;
+const int N = 1e2 + 5;
+int n,m,q,s,t,c[N][N];
+int main()
+{
+    #ifndef ONLINE_JUDGE
+        freopen("l.inp","r",stdin);
+        freopen("l.out","w",stdout);
+    #endif // ONLINE_JUDGE
+    ios::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    cin>>n>>m;
+    fo(i,1,n)
+    fo(j,1,n)
+    if(i != j)
+        c[i][j] = 1e9;
+    fo(i,1,m)
+    {
+        int u,v,w;
+        cin>>u>>v>>w;
+        c[u][v] = c[v][u] = w;
+    }
+    fo(k,1,n)
+    fo(i,1,n)
+    fo(j,1,n)
+        c[i][j] = min(c[i][j],max(c[i][k],c[k][j]));
+    cin>>q;
+    while(q--)
+    {
+        cin>>s>>t;
+        if(c[s][t] == 1e9)
+            cout<<-1<<'\n';
+        else cout<<c[s][t]<<'\n';
+    }
+}

@@ -1,0 +1,73 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define fo(i,a,b) for(int i=a;i<=b;++i)
+#define fod(i,a,b) for(int i=a;i>=b;--i)
+#define ii pair<int,int>
+#define iii pair<ll,ii>
+#define fi first
+#define se second.first
+#define th second.second
+#define oo 1e18
+#define bit(x,i) (((x)>>(i))&1)
+using namespace std;
+const int MOD = 1e9 + 7;
+const int N = 1e2 + 5;
+const int M = 1e3 + 5;
+int n,m,q,sx,sf;
+ll d[N][M],a[N][M];
+vector<ii>p[N];
+int X[] = {1,0,-1,0};
+int Y[] = {0,1,0,-1};
+void dijkstra()
+{
+    priority_queue<iii, vector<iii>, greater<iii>>pq;
+    fo(i,1,n)
+    fo(j,1,m)
+        d[i][j] = 1e16;
+    d[sx][sf] = a[sx][sf];
+    pq.push({d[sx][sf],{sx,sf}});
+    while(!pq.empty())
+    {
+        ll du = pq.top().fi;
+        int x = pq.top().se;
+        int y = pq.top().th;
+        pq.pop();
+        if(du != d[x][y])
+            continue;
+        fo(i,0,3)
+        {
+            int u = x + X[i];
+            int v = y + Y[i];
+            if(u > 0 && v > 0 && u <= n && v <= m)
+            {
+                if(d[u][v] > d[x][y] + a[u][v])
+                {
+                    d[u][v] = d[x][y] + a[u][v];
+                    pq.push({d[u][v],{u,v}});
+                }
+            }
+        }
+    }
+}
+int main()
+{
+    ios::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    #ifndef ONLINE_JUDGE
+        freopen("l.inp","r",stdin);
+        freopen("l.out","w",stdout);
+    #endif // ONLINE_JUDGE
+    cin>>n>>m>>sx>>sf;
+    fo(i,1,n)
+    fo(j,1,m)
+        cin>>a[i][j];
+    dijkstra();
+    ll ans = 1e16;
+    fo(i,1,n)
+        ans = min({ans,d[i][1],d[i][m]});
+    fo(i,1,m)
+        ans = min({ans,d[1][i],d[n][i]});
+    if(ans == 1e16)
+        cout<<-1;
+    else cout<<ans;
+}
