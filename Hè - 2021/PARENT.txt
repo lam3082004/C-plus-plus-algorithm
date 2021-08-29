@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define fi first
+#define se second
+#define   ii  pair<int,int>
+#define   iii pair<int,ii>
+#define fo(i, a, b) for (int i = a; i <= b; i++)
+#define nmax 100005
+using namespace std;
+const ll oo=1e9+10;
+int u, n, m, r, q;
+int a[nmax],parent[nmax];
+vector<int>p[nmax];
+void dfs(int x,int u)
+{
+    for(auto v : p[u])
+    if(v != x)
+    {
+        dfs(u,v);
+        parent[v] = u;
+    }
+}
+int main()
+{
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+#ifndef ONLINE_JUDGE
+    freopen("l.inp", "r", stdin);
+    freopen("l.out", "w", stdout);
+#endif // ONLINE_JUDGE
+    cin>>n>>r>>q;
+    fo(i,1,n-1)
+    {
+        int u,v;
+        cin>>u>>v;
+        p[u].push_back(v);
+        p[v].push_back(u);
+    }
+    dfs(-1,r);
+    parent[r] = -1;
+    while(q--)
+    {
+        cin>>u;
+        cout<<parent[u]<<'\n';
+    }
+}

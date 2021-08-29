@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+#define nmax 100005
+#define ll long long
+#define fo(i,a,b) for(ll i=a;i<=b;i++)
+#define fod(i,a,b) for(ll i=b;i>=a;i--)
+#define fi first
+#define se second
+using namespace std;
+const int oo=1000000009;
+typedef pair<int ,int> ii;
+vector<ii> a[nmax];
+priority_queue<ii,vector<ii>,greater<ii>>t;
+int n,m;
+int d[nmax],f[nmax];
+ll kq;
+int main()
+{
+#ifndef ONLINE_JUDGE
+    freopen("l.inp", "r", stdin);
+    freopen("l.out", "w", stdout);
+#endif // ONLINE_JUDGE
+	cin>>n>>m;
+	fo(i,1,m)
+	{
+		int u , v , w;
+		cin>>u>>v>>w;
+		a[u].push_back({v,w});
+		a[v].push_back({u,w});
+	}
+	fo(i,1,n)
+		d[i]=+oo,f[i]=0;
+	d[1]=0;
+	t.push({d[1],1});
+	while(t.size()>0){
+		ii pos=t.top();
+		t.pop();
+		int u=pos.se;
+		if (f[u]==1) 	continue;
+		f[u]=1;	kq+=d[u];
+		for(int i=0;i<a[u].size();i++){
+			int v=a[u][i].fi;
+			int w=a[u][i].se;
+			if(w < d[v]){
+				d[v]=w;
+				t.push({d[v],v});
+			}
+		}
+	}
+	cout<<kq<<endl;
+}

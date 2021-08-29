@@ -1,0 +1,64 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define fo(i,a,b) for(int i=a;i<=b;++i)
+#define fod(i,a,b) for(int i=a;i>=b;--i)
+#define ii pair<ll,int>
+#define iii pair<ll,ii>
+#define fi first
+#define se second
+#define oo 1e18
+#define bit(x,i) (((x)>>(i))&1)
+using namespace std;
+const int MOD = 1e9 + 7;
+const int N = 1e3 + 5;
+struct edge
+{
+    int u,v,w;
+};
+int n,q,m,par[N];
+bool vs[N];
+vector<ii>p[N];
+ll prim()
+{
+    priority_queue<ii, vector<ii>, greater<ii>>pq;
+    vs[1] = 1;
+    for(auto v : p[1])
+        pq.push(v);
+    ll ans = 0;
+    while(!pq.empty())
+    {
+        ll du = pq.top().fi;
+        int u = pq.top().se;
+        pq.pop();
+        if(vs[u])
+           continue;
+        ans += du;
+        vs[u] = 1;
+        for(auto v : p[u])
+        if(!vs[v.se])
+            pq.push(v);
+    }
+    return ans;
+}
+int main()
+{
+    #ifndef ONLINE_JUDGE
+        freopen("l.inp","r",stdin);
+        freopen("l.out","w",stdout);
+    #endif // ONLINE_JUDGE
+    ios::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    cin>>n;
+    fo(i,1,n)
+    fo(j,1,n)
+    {
+        int x;
+        cin>>x;
+        if(x != 0)
+        {
+            p[i].push_back(ii(x,j));
+            p[j].push_back(ii(x,i));
+        }
+    }
+    cout<<prim();
+}

@@ -1,0 +1,68 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define fi first
+#define se second
+#define   ii  pair<int,int>
+#define   iii pair<int,ii>
+#define fo(i, a, b) for (int i = a; i <= b; i++)
+#define nmax 100005
+using namespace std;
+int n, m;
+iii e[nmax];
+int parent[nmax], sl[nmax];
+ll ans = 0;
+int find (int u)
+{
+    while(parent[u] != -1)
+        u = parent[u];
+    return u;
+}
+void join (int u, int v)
+{
+    if (sl[u] > sl[v])
+    {
+        parent[v] = u;
+        sl[u] += sl[v];
+    }
+    else
+    {
+        parent[u] = v;
+        sl[v] += sl[u];
+    }
+}
+int main()
+{
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+#ifndef ONLINE_JUDGE
+    freopen("l.inp", "r", stdin);
+    freopen("l.out", "w", stdout);
+#endif // ONLINE_JUDGE
+    cin >> n >> m;
+    for (int i = 1; i <= m; i++)
+    {
+        int u, v, w;
+        cin >> u >> v >> w;
+        e[i] = {w, {u, v}};
+    }
+    sort(e + 1, e + m + 1);
+    for (int i = 1; i <= n; i++)
+        parent[i] = -1, sl[i] = 1;
+
+    for (int i = 1; i <= m; i++)
+    {
+        int w = e[i].fi;
+        int u = e[i].se.fi;
+        int v = e[i].se.se;
+
+        int uu = find(u);
+        int vv = find(v);
+        if(uu != vv)
+        {
+            ans = ans + w;
+            join(uu, vv);
+        }
+    }
+    cout << ans;
+}

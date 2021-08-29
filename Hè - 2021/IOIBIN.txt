@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define fi first
+#define se second
+#define   ii  pair<int,int>
+#define   iii pair<int,ii>
+#define fo(i, a, b) for (int i = a; i <= b; i++)
+#define nmax 100005
+using namespace std;
+const ll oo=1e9+10;
+int fa[nmax],adj[nmax];
+int anc(int i)
+{
+    return (i==fa[i]) ? i:fa[i]=anc(fa[i]);
+}
+bool join(int u,int v)
+{
+    u=anc(u);
+    v=anc(v);
+    if (u==v) return false;
+    fa[u]=v;
+    return true;
+}
+int main()
+{
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+#ifndef ONLINE_JUDGE
+    freopen("l.inp", "r", stdin);
+    freopen("l.out", "w", stdout);
+#endif // ONLINE_JUDGE@
+    for (int i=1;i<=1e5;i++)
+        fa[i]=i;
+    int T;
+    cin>>T;
+    while(T--){
+        int u,v,type;
+        cin>>u>>v>>type;
+        if (type==1) join(u,v);
+        else cout<<(anc(u)==anc(v))<<'\n';
+    }
+}
