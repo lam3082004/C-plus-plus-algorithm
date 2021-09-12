@@ -4,18 +4,25 @@
 #define nmax 1000005
 #define fi first
 #define se second
-#define ii pair<int, int>
+// #define ii pair<int, int>
 const ll mod = 1e9 + 7;
 using namespace std;
-ll n, a[nmax];
+ll n;
 int main()
 {
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
 #ifndef ONLINE_JUDGE
-    freopen("1.inp", "r", stdin);
-    freopen("1.out", "w", stdout);
+    freopen("LES19A.inp", "r", stdin);
+    freopen("LES19A.out", "w", stdout);
 #endif // ONLINE_JUDGE
-    cout << 30;
+    while (cin >> n)
+    {
+        if (n >= 30)
+            cout << "Yes";
+        else
+            cout << "No";
+        cout << '\n';
+    }
 }
