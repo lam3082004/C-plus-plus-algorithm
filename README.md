@@ -1,2 +1,1 @@
-Một chút thuật toán =))
------high shool-----
+My Algorithm in high school
