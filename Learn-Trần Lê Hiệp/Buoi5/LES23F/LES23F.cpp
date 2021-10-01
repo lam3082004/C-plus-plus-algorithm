@@ -17,4 +17,4 @@ int main()
     freopen("LES23F.inp", "r", stdin);
     freopen("LES23F.out", "w", stdout);
 #endif // ONLINE_JUDGE
-}
+}   

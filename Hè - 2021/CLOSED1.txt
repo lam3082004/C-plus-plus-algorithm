@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define fo(i,a,b) for(int i=a;i<=b;++i)
+#define ii pair<int,ii>
+#define fi first
+#define se second
+#define oo 1e18
+using namespace std;
+const int MOD = 998244353;
+const int nmax = 3e3 + 5;
+int n,m,a;
+vector<int>ans,p[nmax];
+bool vs[nmax],vs2[nmax];
+void dfs(int u)
+{
+    vs2[u] = 1;
+    for(auto v : p[u])
+    if(!vs[v] && !vs2[v])
+        dfs(v);
+}
+int main()
+{
+    #ifndef ONLINE_JUDGE
+        freopen("l.inp","r",stdin);
+        freopen("l.out","w",stdout);
+    #endif // ONLINE_JUDGE
+    ios::sync_with_stdio(0);
+    cin.tie(0);cout.tie(0);
+    cin>>n>>m;
+    fo(i,1,m)
+    {
+        int u,v;
+        cin>>u>>v;
+        p[u].push_back(v);
+        p[v].push_back(u);
+    }
+    fo(i,1,n)
+    {
+        cin>>a;
+        int res = 0;
+        memset(vs2,0,sizeof(vs2));
+        fo(j,1,n)
+        if(!vs[j])
+        {
+            dfs(j);
+            break;
+        }
+        fo(j,1,n)
+            res += vs2[j];
+        vs[a] = 1;
+        if(res == n-i+1)
+            cout<<"YES"<<'\n';
+        else
+            cout<<"NO"<<'\n';
+    }
+}
